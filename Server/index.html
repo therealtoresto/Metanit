@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main</title>
+  <link rel="stylesheet" href="public/styles.css" type=text/css>
+</head>
+<body>
+  <h1>{header}</h1>
+  <p>{message}</p>
+  <script>
+    const sendUser = async () => {
+      //const res = await fetch('/user', { method: 'POST', body: 'Tom Smith' });
+      const res = await fetch('/user', { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: 'Tom',
+          age: 37
+        })
+      });
+      const resText = await res.text();
+      console.log(resText);
+    }
+    sendUser();
+  </script>
+</body>
+</html>
