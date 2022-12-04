@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Enter data</h1>
+    <form name="registerForm">
+        <label>Name</label></br>
+        <input type="text" name="userName" /></br></br>
+        <label>Age</label></br>
+        <input type="number" name="userAge" /></br></br>
+        <button type="submit" id="submit">Send</button>
+    </form>
+    <script>
+        document.getElementById('submit').addEventListener('click', (e) => {
+            e.preventDefault();
+            // get form data
+            const registerForm = document.forms['registerForm'];
+            const userName = registerForm.elements['userName'].value;
+            const userAge = registerForm.elements['userAge'].value;
+            // data serializing
+            const user = JSON.stringify({userName: userName, userAge: userAge});
+            const xhr = new XMLHttpRequest();
+            // send req on '/user'
+            xhr.open('POST', '/user', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.addEventListener('load', () => {
+                // get and parse response
+                const receivedUser = JSON.parse(xhr.response);
+                console.log(receivedUser.userName, '-', receivedUser.userAge);
+            });
+            xhr.send(user);
+        });
+    </script>
+</body>
+</html>
