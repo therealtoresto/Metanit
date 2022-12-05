@@ -1,0 +1,10 @@
+{
+    "name": "mocha-app",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "mocha *.test.js"
+    },
+    "devDependencies": {
+        "mocha": "^10.1.0"
+    }
+}
