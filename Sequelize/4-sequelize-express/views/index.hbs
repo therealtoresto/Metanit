@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users list</title>
+</head>
+<body>
+    <h1>Users list</h1>
+    <p><a href="/create">Create user</a></p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th></th>
+        </tr>
+        {{#each users}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.age}}</td>
+            <td>
+                <a href="/edit/{{this.id}}">Edit</a>
+                <form action="delete/{{this.id}}" method="POST" style="display:inline">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+            {{/each}}
+        </tr>
+    </table>
+    
+</body>
+</html>
