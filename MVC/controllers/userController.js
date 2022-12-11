@@ -6,15 +6,18 @@ exports.addUser = (req, res) => {
     res.render('create.hbs');
 };
 
-exports.getUsers = (req, res) => {
+exports.getUsers = async (req, res) => {
+    const allUsers = await User.find({});
     res.render('users.hbs', {
-        users: User.getAll()
+        users: allUsers
     });
 };
-exports.postUser = (req, res) => {
+exports.postUser = async (req, res) => {
+    if (!req.body) return res.sendStatus(400);
     const userName = req.body.name;
     const userAge = req.body.age;
-    const user = new User(userName, userAge);
-    user.save();
+    const user = new User({name: userName, age: userAge});
+    
+    await user.save();
     res.redirect('/users');
 };
