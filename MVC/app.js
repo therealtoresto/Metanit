@@ -1,13 +1,14 @@
 'use strict';
 
-const express = require(express);
+const express = require('express');
 const app = express();
-const userController = require('./controllers/userController');
-const homeController = require('./controllers/homeController');
 
 // define routes
-const userRouter = require('./routes/userRouter'); // for address with '/users'
-const homeRouter = require('./routes/homeRouter');
+const userRouter = require('./routes/userRouter.js'); // for address with '/users'
+const homeRouter = require('./routes/homeRouter.js');
+
+app.set('view engine', 'hbs');
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/users', userRouter);
 app.use('/', homeRouter);
