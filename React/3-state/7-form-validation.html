@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React forms</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        class UserForm extends React.Component {
+            constructor(props) {
+                super(props);
+                const name = props.name;
+                const nameIsValid = this.validateName(name);
+                const age = props.age;
+                const ageIsValid = this.validateAge(age);
+
+                this.state = { name: name, age: age, nameValid: nameIsValid, ageValid: ageIsValid };
+
+                this.onNameChange = this.onNameChange.bind(this);
+                this.onAgeChange = this.onAgeChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+            validateAge(age) {
+                return age >= 0;
+            }
+            validateName(name) {
+                return name.length > 2;
+            }
+            onAgeChange(e) {
+                const val = e.target.value;
+                const valid = this.validateAge(val);
+                this.setState({ age: val, ageValid: valid });
+            }
+            onNameChange(e) {
+                const val = e.target.value;
+                console.log(val);
+                const valid = this.validateName(val);
+                this.setState({ name: val, nameValid: valid });
+            }
+            handleSubmit(e) {
+                e.preventDefault();
+                if (this.state.nameValid === true && this.state.ageValid === true) {
+                    alert(`Name: ${this.state.name} Age: ${this.state.age}`);
+                }
+            }
+            render() {
+                // border color for name input
+                const nameColor = this.state.nameValid === true ? 'green' : 'red';
+                // border color for age input
+                const ageColor = this.state.ageValid === true ? 'green' : 'red';
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        <p>
+                            <label>Name:</label><br />
+                            <input type='text' value={this.state.name} 
+                                onChange={this.onNameChange} style={{borderColor: nameColor}} />
+                        </p>
+                        <p>
+                            <label>Age:</label><br />
+                            <input type='number' value={this.state.age} 
+                                onChange={this.onAgeChange} style={{borderColor: ageColor}} />
+                        </p>
+                        <input type='submit' value='Send' />
+                    </form>
+                )
+            }
+        }
+        ReactDOM.createRoot(
+            document.getElementById('app')
+        ).render(
+            <UserForm name='' age='0' />
+        );
+    </script>
+</body>
+</html>
