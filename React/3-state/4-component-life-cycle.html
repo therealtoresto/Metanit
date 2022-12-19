@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+    <style>
+        button {
+            width: 100px;
+            height: 30px;
+            border-radius: 4px;
+            margin: 50px;
+        }
+        .on {
+            color: #666;
+            background-color: #ccc;
+        }
+        .off {
+            color: #888;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        class ClickButton extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    class: 'off',
+                    label: 'Click'
+                };
+                this.press = this.press.bind(this);
+                console.log('Constructor');
+            }
+            static getDerivedStateFromProps(props, state) {
+                console.log('getDerivedSatteFromProps(props, state)');
+                return null;
+            }
+            componentDidMount() {
+                console.log('componentDidMount()');
+            }
+            componentWillUnmount() {
+                console.log('componentWillUnmount()');
+            }
+            shouldComponentUpdate() {
+                console.log('shouldComponentUpdate()');
+                return true;
+            }
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+                console.log('getSnapShotBeforeUpdate(prevProps, prevState)');
+                return null;
+            }
+            componentDidUpdate() {
+                console.log('componentDidUpdate()');
+            }
+            press() {
+                const className = (this.state.class === 'off') ? 'on' : 'off';
+                this.setState({ class: className });
+            }
+            render() {
+                console.log('render()');
+                return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+            }
+        }
+        ReactDOM.createRoot(
+            document.getElementById('app')
+        ).render(
+            <ClickButton />
+        );
+    </script>
+</body>
+</html>
