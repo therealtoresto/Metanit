@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="container"></div>
+    <div id="footer"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script  type="text/babel">
+        function Hello(props) {
+            return <div>
+                <p>Name: {props.name}</p>
+                <p>Age: {props.age}</p>
+            </div>;
+        }
+
+        class Halo extends React.Component {
+            render() {
+                return <div>
+                    <p>Name: {this.props.name}</p>
+                    <p>Age: {this.props.age}</p>
+                </div>;
+            }
+        }
+        Halo.defaultProps = { name: "Bob", age: "18" };
+
+        const Hi = (props) => {
+            const { name, age } = props;
+            return (<div>
+                    <p>Name: {props.name}</p>
+                    <p>Age: {props.age}</p>
+                </div>
+            );
+        }
+        const header = ReactDOM.createRoot(document.getElementById('header'));
+        const container = ReactDOM.createRoot(document.getElementById('container'));
+        const footer = ReactDOM.createRoot(document.getElementById('footer'));
+        
+        header.render(<Hello name="Tom" age="33" />);
+        container.render(<Halo  />);
+        footer.render(<Hi name="Alice" age="21" />);
+    </script>
+</body>
+</html>
