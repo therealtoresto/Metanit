@@ -1,0 +1,21 @@
+{
+  "name": "1-introduction",
+  "version": "0.1.0",
+  "description": "React application",
+  "main": "4-app.js",
+  "scripts": {
+    "start": "npx babel 3-index.jsx --out-file index.js && node 4-app.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.19.3",
+    "@babel/core":"^7.20.5",
+    "@babel/preset-react": "^7.18.6"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
+  "author": "therealtoresto",
+  "license": "MIT"
+}
