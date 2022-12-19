@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        class ClickButton extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { counter: 0 };
+                this.press = this.press.bind(this);
+            }
+            incCounter(prevState, props) {
+                return {
+                    counter: prevState.counter + parseInt(props.increment)
+                };
+            }
+            press() {
+                this.setState(this.incCounter);
+                this.setState(this.incCounter);
+            }
+            render() {
+                return <div>
+                            <button onClick={this.press}>Count</button>
+                            <div>Counter: {this.state.counter} <br /> Increment: {this.props.increment}</div>
+                        </div>
+            }
+        }
+        ReactDOM.createRoot(
+            document.getElementById('app')
+        )
+        .render(
+            <ClickButton increment='1' />
+        );
+    </script>
+</body>
+</html>
