@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+</head>
+<body>
+    <div id="app"></div>
+    <div id="body"></div>
+    <div id="footer"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script  type="text/babel">
+
+        // events in components-class
+        // get information about event `e`
+
+        class ClickButton extends React.Component {
+            constructor(props) {
+                super(props);
+                this.press = this.press.bind(this);
+            }
+
+            press(e) {
+                console.log('This:', this);
+                console.log(e);
+                alert('Hi, universe!');
+            }
+
+            render() {
+                return <button onClick={this.press}>Alert</button>;
+            }
+
+            // or
+            
+             // press = () => {
+            //     console.log(this);
+            //     alert('Hi, universe');
+            // }
+            // render() {
+            //     return <button onClick={this.press}>Click</button>
+            // }
+
+            // or [bad practice]
+           
+            // press() {
+            //     console.log(this);
+            //     alert('Hi, universe');
+            // }
+            // render() {
+            //     return <button onClick={() => this.press()}>Click</button>
+            // }
+        }
+
+        // pass params into the event handler
+        class PrintButton extends React.Component {
+            constructor(props) {
+                super(props);
+                this.print = this.print.bind(this);
+            }
+
+            print(name, age) {
+                console.log(`Name: ${name} Age: ${age}`);
+            }
+            
+            render() {
+                return <div>
+                    <button onClick={() => this.print('Bob', 23)}>Print Bob</button>
+                    <button onClick={() => this.print('Tom', 21)}>Print Tom</button>
+                </div>
+            }
+
+        }
+
+        ReactDOM.createRoot(document.getElementById('app'))
+            .render(
+                <ClickButton />
+            );
+        ReactDOM.createRoot(document.getElementById('body'))
+            .render(<PrintButton />)
+    </script>
+</body>
+</html>
