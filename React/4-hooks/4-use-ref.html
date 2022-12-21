@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>useRef</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const UserForm = () => {
+            const nameField = React.useRef(null);
+            const send = () => {
+                const inputElement = nameField.current;
+                console.log('Name: ' + inputElement.value);
+            };
+
+            return (
+                <div>
+                    <input type='text' ref={nameField} />
+                    <button onClick={send}>Send</button>
+                </div>
+            );
+        }
+        
+        ReactDOM.createRoot(
+            document.getElementById('app')
+        ).render(
+            <UserForm />
+        )
+    </script>
+</body>
+</html>
