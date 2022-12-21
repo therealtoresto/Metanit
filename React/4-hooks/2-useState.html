@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>useState</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        function Counter(props) {
+            const [count, setCount] = React.useState(0);
+            return (
+                <div>
+                    <h3>Count = {count}</h3>
+                    <button onClick={() => setCount(count + 1)}>Increase</button>
+                </div>
+            );
+        }
+        
+        ReactDOM.createRoot(
+            document.getElementById('app')
+        ).render(
+            <Counter />
+        )
+    </script>
+</body>
+</html>
