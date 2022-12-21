@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routing</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.production.min.js" crossorigin></script>
+  
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const Router = ReactRouterDOM.BrowserRouter;
+        const Route = ReactRouterDOM.Route;
+        const Routes = ReactRouterDOM.Routes; 
+
+        class About extends React.Component {
+            render() {
+                return <h2>About site</h2>;
+            } 
+        }
+
+        class NotFound extends React.Component {
+            render() {
+                return <h2>Resource not found</h2>;
+            } 
+        }
+
+        class Main extends React.Component {
+            render() {
+                return <h2>Main</h2>;
+            } 
+        }
+
+        ReactDOM.createRoot(document.getElementById('app'))
+            .render(
+                <Router>
+                    <div>
+                        <Routes>
+                            <Route path='/' element={<Main />} />
+                            <Route path='/about' element={<About />} />
+                            <Route path='*' element={<NotFound />} />
+                        </Routes>
+                    </div>
+                </Router>
+            );
+    </script>
+</body>
+</html>
