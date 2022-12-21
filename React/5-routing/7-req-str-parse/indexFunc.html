@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Parsing</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/history@5/umd/history.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-router@6.3.0/umd/react-router.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const Router = ReactRouterDOM.BrowserRouter;
+        const Route = ReactRouterDOM.Route;
+        const Routes = ReactRouterDOM.Routes; 
+        const useParams = ReactRouterDOM.useParams;
+        const useSearchParams = ReactRouterDOM.useSearchParams;
+        const Link = ReactRouterDOM.Link;
+
+        const ProductsList = () => {
+            return (
+                <div>
+                    <h2>Product List</h2>
+                    <ul>
+                        {
+                            phones.map((item) => {
+                                return <li key={item.id}>
+                                    <NavLink to={`/products/${item.id}`}>{item.name}</NavLink>
+                                </li>
+                            })
+                        }
+                    </ul>
+                </div>
+            )
+        }
+
+        const Home = () => {
+            const params = useParams();
+            const [searchParams, setSearchParams] = useSearchParams();
+            return (
+                <div>
+                    <h2>Main</h2>
+                    <p>Id: {params.id}</p>
+                    <p>Name: {searchParams.get('name')}</p>
+                    <p>Age: {searchParams.get('age')}</p>
+                </div>
+            )
+        }
+
+        const About = () => {
+            return <h2>About us</h2>;
+        }
+
+        const NotFound = () => {
+            return <h2>Resource not found</h2>
+        }
+
+        ReactDOM.createRoot(document.getElementById('app'))
+            .render(
+                <Router>
+                    <div>
+                        <nav>
+                            <Link to='/2/?name=Bob&age=23'>Bob</Link>
+                            <Link to='/2/?name=Tim&age=33'>Tim</Link>
+                        </nav>
+                        <Routes>
+                            <Route path='/:id' element={<Home />} />
+                            <Route path='about' element={<About />} />
+                            <Route path='*' element={<NotFound />} />
+                        </Routes>
+                    </div>
+                </Router>
+            );
+    </script>
+</body>
+</html>
