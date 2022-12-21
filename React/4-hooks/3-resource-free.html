@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>useEffect</title>
+</head>
+<body>
+    <div id="app"></div>
+    <button id="unmountBtn">Unmount</button>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(
+            document.getElementById('app')
+        );
+
+        const User = () => {
+            const [name, setName] = React.useState('Tom');
+
+            const unmount = () => root.unmount();
+
+            React.useEffect(() => {
+                const unmountBtn = document.getElementById('unmountBtn');
+                unmountBtn.addEventListener('click', unmount);
+                console.log('EventListener added');
+                return () => {
+                    unmountBtn.removeEventListener('click', unmount);
+                    console.log('EventListener removed')
+                }
+            }, []);
+            return (
+                <div>
+                    <h3>Name: {name}</h3>
+                    <p>Name: <input type='text' value={name} onChange={(e) => setName(e.target.value)} /></p>
+                </div>
+            );
+        }
+
+        root.render(
+            <User />
+        )
+    </script>
+</body>
+</html>
