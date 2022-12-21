@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/history@5/umd/history.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-router@6.3.0/umd/react-router.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const Router = ReactRouterDOM.BrowserRouter;
+        const Route = ReactRouterDOM.Route;
+        const Routes = ReactRouterDOM.Routes; 
+        const Link = ReactRouterDOM.Link;
+
+        class Home extends React.Component {
+            render() {
+                return <h2>Welcome to the homepage</h2>
+            }
+            
+        }
+
+        class About extends React.Component {
+            render() {
+                return <h2>About us</h2>;
+            }
+        }
+
+        class NotFound extends React.Component {
+            render() {
+                return <h2>Resource not found</h2>
+            }
+        }
+    
+        class Products extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <h2>Products</h2>
+                    </div>
+                )
+            }
+        }
+
+        class Nav extends React.Component {
+            render() {
+                return (
+                    <nav>
+                        <Link to='/'>Main</Link>
+                        <Link to='/about'>About</Link>
+                        <Link to='/products'>Products</Link>
+                    </nav>
+                )
+            }
+        }
+
+        ReactDOM.createRoot(document.getElementById('app'))
+            .render(
+                <Router>
+                    <div>
+                        <Nav />
+                        <Routes>
+                            <Route path='/' element={<Home />} />
+                            <Route path='about' element={<About />} />
+                            <Route path='/products' element={<Products />} />
+                            <Route path='*' element={<NotFound />} />
+                        </Routes>
+                    </div>
+                </Router>
+            );
+    </script>
+</body>
+</html>
