@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBS Form</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        class UserForm extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    currentStep: 1,
+                    username: '',
+                    email: '',
+                    password: '',
+                }
+            }
+
+            handleChange = (event) => {
+                const { name, value } = event.target;
+                this.setState({
+                    [name]: value
+                })
+            }
+
+            handleSubmit = (event) => {
+                event.preventDefault();
+                const { username, email, password } = this.state;
+                alert(`Enter data: \nName: ${username} \nEmail: ${email} \nPassword: ${password}`);
+            }
+
+            _next = () => {
+                let currentStep = this.state.currentStep;
+                currentStep = currentStep >= 2 ? 3 : currentStep + 1;
+                this.setState({
+                    currentStep: currentStep
+                }) 
+            }
+
+            _prev = () => {
+                let currentStep = this.state.currentStep;
+                currentStep = currentStep <= 1 ? 1 : currentStep - 1;
+                this.setState({
+                    currentStep: currentStep
+                })
+            }
+
+            previousButton = () => {
+                const currentStep = this.state.currentStep;
+                if (currentStep !== 1) {
+                    return (
+                        <button type='button' onClick={this._prev}>Back</button>
+                    )
+                }
+                return null;
+            }
+
+            nextButton = () => {
+                const currentStep = this.state.currentStep;
+                if (currentStep < 3) {
+                    return (
+                        <button type='button' onClick={this._next}>Forward</button>
+                    )
+                }
+                return null;
+            }
+
+            sendButton = () => {
+                const currentStep = this.state.currentStep;
+                if (currentStep === 3) {
+                    return (
+                        <button>Send</button>
+                    )
+                }
+                return null;
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>Sign in form</h1>
+                        <p>Step {this.state.currentStep}</p>
+                        <form onSubmit={this.handleSubmit}>
+                            <UserNameStep
+                                currentStep={this.state.currentStep}
+                                handleChange={this.handleChange}
+                                username={this.state.username}
+                            />
+                            <EmailStep
+                                currentStep={this.state.currentStep}
+                                handleChange={this.handleChange}
+                                email={this.state.email}
+                            />
+                            <PasswordStep
+                                currentStep={this.state.currentStep}
+                                handleChange={this.handleChange}
+                                password={this.state.password}
+                            />
+                            <p>
+                                {this.previousButton()}
+                                {this.nextButton()}
+                                {this.sendButton()}
+                            </p>
+                        </form>
+                    </div>
+                );
+            }
+        }
+
+        class UserNameStep extends React.Component {
+            render() {
+                if (this.props.currentStep !== 1) {
+                    return null;
+                }
+                return (
+                    <div>
+                        <label>Name</label>
+                        <input
+                            name='username'
+                            type='text'
+                            placeholder='Enter your name'
+                            value={this.props.username}
+                            onChange={this.props.handleChange}
+                            />
+                    </div>
+                );
+            }
+        }
+        class EmailStep extends React.Component {
+            render() {
+                if (this.props.currentStep !== 2) {
+                    return null;
+                }
+                return (
+                    <div>
+                        <label>Email</label>
+                        <input
+                            name='email'
+                            type='text'
+                            placeholder='Enter your email'
+                            value={this.props.email}
+                            onChange={this.props.handleChange}
+                            />
+                    </div>
+                );
+            }
+        }
+
+        class PasswordStep extends React.Component {
+            render() {
+                if (this.props.currentStep !== 3) {
+                    return null;
+                }
+                return (
+                    <div>
+                        <label>Password</label>
+                        <input
+                            name='password'
+                            type='password'
+                            placeholder='Enter your password'
+                            value={this.props.password}
+                            onChange={this.props.handleChange}
+                            />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.createRoot(
+            document.getElementById('app')
+        ).render(<UserForm />)
+    </script>
+
+    
+</body>
+</html>
